@@ -21,6 +21,7 @@
     "dev:push-sw": "tsup --watch --config sw.tsup.config.ts",
     "build": "pnpm run --sequential \"/^build:.*/\"",
     "dev": "pnpm run \"/^(build:manifest|dev:.*)/\"",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "lint": "next lint --max-warnings 0",
     "types": "tsc --noEmit",
     "start": "next start",
@@ -40,6 +41,7 @@
     "@iframe-resizer/react": "^5.4.6",
     "@maplibre/maplibre-gl-geocoder": "^1.8.0",
     "@next/env": "^15.3.3",
+    "@opennextjs/cloudflare": "^1.2.1",
     "@paralleldrive/cuid2": "^2.2.2",
     "@prisma/nextjs-monorepo-workaround-plugin": "^6.8.2",
     "@t3-oss/env-nextjs": "^0.13.6",
@@ -131,7 +133,8 @@
     "tsx": "^4.19.4",
     "typescript-eslint": "^8.33.1",
     "vitest": "^3.2.1",
-    "webpack": "^5.99.9"
+    "webpack": "^5.99.9",
+    "wrangler": "^4.19.1"
   },
   "prettier": {
     "plugins": [

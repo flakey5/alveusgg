@@ -514,6 +514,7 @@ const ShowAndTellIndexPage: NextPage<ShowAndTellPageProps> = ({
           {entries.data?.pages.flatMap((page) =>
             page.items.map((entry) => (
               <ShowAndTellEntry
+              // @ts-expect-error asd
                 entry={entry}
                 isPresentationView={isPresentationView}
                 key={entry.id}

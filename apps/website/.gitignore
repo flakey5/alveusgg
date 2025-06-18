@@ -16,3 +16,9 @@ next-env.d.ts
 
 # vercel
 /.vercel/
+
+# opennext
+.open-next/
+
+# wrangler
+.dev.vars

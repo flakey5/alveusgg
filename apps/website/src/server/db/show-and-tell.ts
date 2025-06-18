@@ -295,23 +295,28 @@ export async function getPublicPostById(id: string) {
   });
 }
 
-export async function getPublicPosts({
-  take,
-  cursor,
-}: {
+// export async function getPublicPosts({
+//   take,
+//   cursor,
+// }: {
+//   take?: number;
+//   cursor?: string;
+// } = {}) {
+export async function getPublicPosts(_: {
   take?: number;
   cursor?: string;
 } = {}) {
-  return prisma.showAndTellEntry.findMany({
-    where: getPostFilter("approved"),
-    select: {
-      ...selectPublic,
-      attachments: withAttachments.include.attachments,
-    },
-    orderBy: [...postOrderBy],
-    cursor: cursor ? { id: cursor } : undefined,
-    take,
-  });
+  return [] as unknown as ReturnType<typeof prisma.showAndTellEntry.findMany>;
+  // return prisma.showAndTellEntry.findMany({
+  //   where: getPostFilter("approved"),
+  //   select: {
+  //     ...selectPublic,
+  //     attachments: withAttachments.include.attachments,
+  //   },
+  //   orderBy: [...postOrderBy],
+  //   cursor: cursor ? { id: cursor } : undefined,
+  //   take,
+  // });
 }
 
 export async function getUserPosts(authorUserId: string, postId?: string) {
@@ -331,34 +336,36 @@ export async function getUserPosts(authorUserId: string, postId?: string) {
 }
 
 export async function getPostsCount() {
-  return prisma.showAndTellEntry.count({
-    where: getPostFilter("approved"),
-  });
+  return 0;
+  // return prisma.showAndTellEntry.count({
+  //   where: getPostFilter("approved"),
+  // });
 }
 
 export async function getUsersCount() {
-  const [countWithUserId, countWithoutUserId] = await Promise.all([
-    prisma.showAndTellEntry.findMany({
-      select: { id: true },
-      where: {
-        userId: {
-          not: null,
-        },
-        AND: getPostFilter("approved"),
-      },
-      distinct: ["userId"],
-    }),
-    prisma.showAndTellEntry.findMany({
-      select: { id: true },
-      where: {
-        userId: null,
-        AND: getPostFilter("approved"),
-      },
-      distinct: ["displayName"],
-    }),
-  ] as const);
+  return 0;
+  // const [countWithUserId, countWithoutUserId] = await Promise.all([
+  //   prisma.showAndTellEntry.findMany({
+  //     select: { id: true },
+  //     where: {
+  //       userId: {
+  //         not: null,
+  //       },
+  //       AND: getPostFilter("approved"),
+  //     },
+  //     distinct: ["userId"],
+  //   }),
+  //   prisma.showAndTellEntry.findMany({
+  //     select: { id: true },
+  //     where: {
+  //       userId: null,
+  //       AND: getPostFilter("approved"),
+  //     },
+  //     distinct: ["displayName"],
+  //   }),
+  // ] as const);
 
-  return countWithUserId.length + countWithoutUserId.length;
+  // return countWithUserId.length + countWithoutUserId.length;
 }
 
 export async function getVolunteeringMinutes({
@@ -614,13 +621,14 @@ export async function deletePost(id: string, authorUserId?: string) {
 }
 
 export async function getPostsToShow() {
-  const postsToShow = await prisma.showAndTellEntry.count({
-    where: {
-      AND: [whereApproved, { seenOnStream: false }],
-    },
-  });
+  return 0;
+  // const postsToShow = await prisma.showAndTellEntry.count({
+  //   where: {
+  //     AND: [whereApproved, { seenOnStream: false }],
+  //   },
+  // });
 
-  return postsToShow;
+  // return postsToShow;
 }
 
 export type LocationFeature = {
@@ -631,18 +639,19 @@ export type LocationFeature = {
 };
 
 export async function getMapFeatures() {
-  return (await prisma.showAndTellEntry.findMany({
-    where: {
-      ...whereApproved,
-      longitude: { not: null },
-      latitude: { not: null },
-    },
-    select: {
-      id: true,
-      location: true,
-      latitude: true,
-      longitude: true,
-    },
-    orderBy: { createdAt: "asc" },
-  })) as LocationFeature[];
+  return [] as LocationFeature[];
+  // return (await prisma.showAndTellEntry.findMany({
+  //   where: {
+  //     ...whereApproved,
+  //     longitude: { not: null },
+  //     latitude: { not: null },
+  //   },
+  //   select: {
+  //     id: true,
+  //     location: true,
+  //     latitude: true,
+  //     longitude: true,
+  //   },
+  //   orderBy: { createdAt: "asc" },
+  // })) as LocationFeature[];
 }

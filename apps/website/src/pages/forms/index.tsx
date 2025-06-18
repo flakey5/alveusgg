@@ -1,7 +1,7 @@
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import Link from "next/link";
 
-import { type Form, prisma } from "@alveusgg/database";
+import { type Form /*, prisma */ } from "@alveusgg/database";
 
 import Heading from "@/components/content/Heading";
 import Meta from "@/components/content/Meta";
@@ -12,20 +12,25 @@ export type FormsPageProps = InferGetStaticPropsType<typeof getStaticProps>;
 export const getStaticProps: GetStaticProps<{
   forms: Form[];
 }> = async () => {
-  const now = new Date().toISOString();
-  const forms = await prisma.form.findMany({
-    where: {
-      active: true,
-      showInLists: true,
-      startAt: { lt: now },
-      OR: [{ endAt: null }, { endAt: { gt: now } }],
-    },
-  });
+  // const now = new Date().toISOString();
+  // const forms = await prisma.form.findMany({
+  //   where: {
+  //     active: true,
+  //     showInLists: true,
+  //     startAt: { lt: now },
+  //     OR: [{ endAt: null }, { endAt: { gt: now } }],
+  //   },
+  // });
 
   return {
-    props: { forms },
-    revalidate: 60,
+    props: { forms: [] },
+    revalidate: 60
   };
+
+  // return {
+  //   props: { forms },
+  //   revalidate: 60,
+  // };
 };
 
 const FormsPage: NextPage<FormsPageProps> = ({ forms }) => {
